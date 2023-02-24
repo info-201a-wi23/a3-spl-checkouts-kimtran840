@@ -5,82 +5,131 @@ output: html_document
 
 ### Introduction
 
-An introduction of the data and a description of the trends/books/items you are choosing to analyze (and why!)
+The data set I'll be using includes all the library checkouts at the Seattle Public Library from 2022-2023. It has a range of features such as author, title, checkouts, and more. I'll be analyzing book titles that I was required to read in highschool, favorite books from my childhood, and favorite books from Dr. Seuss. I wanted to see the checkout trends for these books to see if people are still reading them or interested in them. I also want to see how many checkouts my favorite book has compared to the least and most popular books people checkout in similar categories.
 
 ### Summary Information
 
-Write a summary paragraph of findings that includes the 5 values calculated from your summary information R script
+I calculated the maximum number of checkouts for 2 popular high school required books and their dates. For "Fahrenheit 451" the max number of checkouts was 5 and max date was 2022-12-01. For "Lord of the Flies" the max number of checkouts was 18 and max date was 2022-04-01 and 2022-07-01. This tells me that the book "Lord of the Flies" has been more relevant and trending throughout the years especially knowing that the two books were published a year apart. Even the max checkouts for "Fahrenheit 451" is lower than the minimum checkouts for "Lord of the Flies." One of the max checkouts date is in July too, so this gives me insight into the fact that these checkout numbers may be the result of people that enjoy the book rather than highschool students checking them out for school required reading (most schools don't operate during July due to summer break). 
 
-These will likely be calculated using your DPLYR skills, answering questions such as:
+I calculated the average checkouts of my favorite childhood books to see which ones are popular among younger audiences. The averages come out to be 1.69/checkouts for "Brown Bear, Brown Bear, What Do You See?", 2.46/checkouts for "The Cat in the Hat", and 2.62/checkouts for "The Very Hungry Caterpillar." Based off of my scatterplot, it looks like "The Cat in the Hat" is more popular but with these mean values, we can see "The Very Hungry Caterpillar" is checked out more often throughout the year (trending).
 
-- What is the average number of checkouts for each item?
-- What is the month or year with the most/least checkouts for a book that you're interested in?
-- What is the month or year with the most/least checkouts for ebooks?
-- How has the number of print book checkouts changed over time?
-
-Feel free to calculate and report values that you find relevant.
+Lastly, I wanted to calculate all my favorite Dr. Seuss books as a child and see how it compares to what children like. I calculated the sum total checkouts for 5 of my favorite books by Dr. Seuss with the highest sum checkouts being "Green Eggs and Ham" with 72 checkouts and the lowest sum checkouts being "The Lorax" with 47 checkouts. This result surprised me, because I thought "How the Grinch Stole Christmas" would be the least checked out because it's a Christmas themed book which meant it'll only be checked out around Christmas time. This gave me insight in the fact that Dr. Seuss books will be trending and relevant since majority of checkouts for his book are mostly in the double digits and his most popular book that I love and people love most is "Green Eggs and Ham." 
 
 ### The Dataset
 
 - Who collected/published the data?  
-- What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
-- How was the data collected or generated?  
-- Why was the data collected?  
-- What, if any, ethical questions do you need to consider when working with this data?  
-- What are possible limitations or problems with this data?   (at least 200 words)
 
+The Seattle Public Library. 
+
+- What are the parameters of the data (dates, number of checkouts, kinds of books, etc.)?
+
+The data collects information like usage class, checkout type, material type, checkout year, checkout month, number of checkouts, book title, ISBN number, creator, book subject, publisher, and publication year. 
+
+- How was the data collected or generated?  
+
+The data is collected and logged every time someone makes any item checkout at the Seattle Public Library.
+
+- Why was the data collected?  
+
+The data was collected to help visualize popular trending books and entertainment. This can help libraries with inventory and restocking if they know certain genres, books, authors, etc. is more popular. 
+
+- What, if any, ethical questions do you need to consider when working with this data?  
+
+I think maybe asking if this data was collected with proper security and transparency?  Like for example, do people know they consent to the Seattle Public Library recording every book checkout they make? Does the data collectors make it known that everything checked out would be public records? I think there may arise some uncertainty if these questions are not addressed clearly. 
+
+- What are possible limitations or problems with this data? (at least 200 words)
+
+This data may be inaccurate due to the nature of how large and widespread the data is to collect. Some books from libraries can be stolen, misplaced, or never returned which may not be logged into the system. Sometimes, when a book return date is near and people have not finished it, they can return and checkout the book again making it 2 checkouts instead of 1. Often times, some popular books may have several people holding or waiting on a waitlist to check it out. The scarcity of a book can make it so that checkout numbers are low for the book even though it's extremely popular. All these things may cause inaccuracies in checkout numbers for the books and mess up trends. 
 
 ### First Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+I included this chart to see the trends of the two books I was required in high school to read. I wanted to compare the number of checkouts the two books had each month while also analyzing if there were increases during school months and decreases during summer break months. This chart tells me that "Lord of the Flies" is more popular in 2022-2023 and that checkouts spiked in April and July. "Fahrenheit 451" is less popular and only increased a bit more in December. The checkout spikes might indicate schools requiring students to read the book, however the spike in July does not make sense so this can be concluded that there is no correlation with school required readings and the checkouts of the 2 books. People just enjoy "Lord of the Flies" more based on the chart trends. 
 
-The first chart that you will create and include will show the trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
 
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
+``````{r, echo = FALSE, warning = FALSE, code = readLines("Chart 1.R")}
+# Load dataset
+spl_df <- read.csv("~/Desktop/INFO201code/a3-spl-checkouts-kimtran840/2022-2023-All-Checkouts-SPL-Data.csv", stringsAsFactors = FALSE)
 
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
+# Add combined date column
+spl_df <- spl_df %>% mutate(date = paste0(CheckoutYear, "-", CheckoutMonth,  "-01" ))
 
-Here's an example of how to run an R script inside an RMarkdown file:
+spl_df$date <- as.Date(spl_df$date, format = "%Y-%m-%d")
 
-``````{r, echo = FALSE, warning = FALSE, code = readLines("chart1_example.R")}
-```
+# Compare books
+books_2 <- spl_df %>%
+  filter(Title %in% c("Lord of the Flies", "Fahrenheit 451")) 
+
+# Plot
+ggplot(data = books_2) + geom_line(aes(x = date,
+                                       y = Checkouts,
+                                       color = Title)) +
+  labs(
+    title = "Checkout trends of Fahrenheit 451 vs Lord of the Flies",
+    x = "Checkout Date",
+    y = "Number of Checkouts",
+    color = "Book name"
+  )
+``````
 
 ### Second Trends Over Time Chart
 
-Include a chart. Make sure to describe why you included the chart, and what patterns emerged
+I included this chart to see the checkout trends of my favorite childhood books. The chart lacks red dots and most red dots show near the bottom, so I know "Brown Bear, Brown Bear, What Do You See?" is not that popular. At first glance, "The Cat in the Hat" has more plots but are quite sporadic, giving an illusion that there are more checkouts for the book. However, we can see a clear increase of blue dots in later months that are higher up letting us know "The Very Hungry Caterpillar" is checked out on average more meaning it's more popular. This can probably indicate and let us know that "The Very Hungry Caterpillar" may be popular in 2023-2024 too since there's a clear linear increase from the data. 
 
-The second chart that you will create and include will show another trend over time of your variable/topic/interest. Think carefully about what you want to communicate to your user (you may have to find relevant trends in the dataset first!). Here are some requirements to help guide your design:
 
-- Show more than one, but fewer than ~10 trends
-  - For example, two books, or 5 different mediums
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear - legend title
-In your .Rmd file, make sure to describe why you included the chart, and what patterns emerged
+``````{r, echo = FALSE, warning = FALSE, code = readLines("Chart 2.R")}
+# Load dataset
+spl_df <- read.csv("~/Desktop/INFO201code/a3-spl-checkouts-kimtran840/2022-2023-All-Checkouts-SPL-Data.csv", stringsAsFactors = FALSE)
 
-When we say "clear" or "human readable" titles and labels, that means that you should not just display the variable name.
+# Add combined date column
+spl_df <- spl_df %>% mutate(date = paste0(CheckoutYear, "-", CheckoutMonth,  "-01" ))
 
-Here's an example of how to run an R script inside an RMarkdown file:
+spl_df$date <- as.Date(spl_df$date, format = "%Y-%m-%d")
 
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
-```
+# Book
+fav_child_book <- spl_df %>%
+  filter(Title %in% c("The Very Hungry Caterpillar", "The Cat in the Hat", "Charlotte's Web", "Brown Bear, Brown Bear, What Do You See?")) 
+
+# Plot
+
+ggplot(data = fav_child_book) + geom_point(aes(x = date,
+                                               y = Checkouts, 
+                                               color = Title)) +
+  labs(
+    title = "Favorite Childhood Books Checkout Trends",
+    x = "Checkout Date",
+    y = "Number of Checkouts",
+    color = "Book Title"
+  )
+``````
 
 ### Your Choice
 
-The last chart is up to you. It could be a line plot, scatter plot, histogram, bar plot, stacked bar plot, and more. Here are some requirements to help guide your design:
+I included this chart to view what people loved from Dr. Seuss's work based off of my top 5 favorite books from him. Lots of people loved "Green Eggs and Ham" and "The Cat in the Hat" which makes sense since those were the first 2 books I was introduced to by Dr. Seuss. The least checkouts was "The Lorax" which indicated to me that it isn't as popular now than it was when I was younger. In general, Dr. Seuss has a good amount of book checkouts for all his works, but it seems like his most well known classics continues to be relevant and trending in 2022-2023.  
 
-- You must have clear x and y axis labels
-- The chart needs a clear title 
-- You need a legend for your different line colors and a clear legend title
+``````{r, echo = FALSE, warning = FALSE, code = readLines("Chart 3.R")}
+# Load dataset
+spl_df <- read.csv("~/Desktop/INFO201code/a3-spl-checkouts-kimtran840/2022-2023-All-Checkouts-SPL-Data.csv", stringsAsFactors = FALSE)
 
-Here's an example of how to run an R script inside an RMarkdown file:
+# Add combined date column
+spl_df <- spl_df %>% mutate(date = paste0(CheckoutYear, "-", CheckoutMonth,  "-01" ))
 
-``````{r, echo = FALSE, code = readLines("chart2_example.R")}
-```
+spl_df$date <- as.Date(spl_df$date, format = "%Y-%m-%d")
+
+# Book
+
+dr_seuss <- spl_df %>%
+  filter(Creator == "Dr. Seuss") %>%
+  filter(Title %in% c("Green Eggs and Ham", "The Cat in the Hat", "How the Grinch Stole Christmas", "The Lorax", "One Fish Two Fish Red Fish Blue Fish"))
+
+# Plot
+ggplot(dr_seuss, aes(x = Title,
+                     y = Checkouts,
+                     fill = Title)) + geom_bar(stat = "identity") + scale_fill_manual(values=c("red", "orange", "yellow", "green", "blue")) + 
+  
+  labs(
+    title = "Favorite Dr. Seuss Book Checkouts 2022-2023",
+    x = "Book Titles",
+    y = "Number of Checkouts")
+``````
 
 
