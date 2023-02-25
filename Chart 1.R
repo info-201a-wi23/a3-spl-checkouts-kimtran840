@@ -13,7 +13,7 @@ spl_df$date <- as.Date(spl_df$date, format = "%Y-%m-%d")
 
 # Compare books
 books_2 <- spl_df %>%
-  filter(Title %in% c("Lord of the Flies", "Fahrenheit 451")) 
+           filter(Title %in% c("Lord of the Flies", "Fahrenheit 451")) 
 
 # Plot
 ggplot(data = books_2) + geom_line(aes(x = date,
@@ -24,5 +24,5 @@ ggplot(data = books_2) + geom_line(aes(x = date,
     x = "Checkout Date",
     y = "Number of Checkouts",
     color = "Book name"
-  )
+)
 

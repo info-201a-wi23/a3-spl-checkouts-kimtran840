@@ -14,8 +14,8 @@ spl_df$date <- as.Date(spl_df$date, format = "%Y-%m-%d")
 # Book
 
 dr_seuss <- spl_df %>%
-  filter(Creator == "Dr. Seuss") %>%
-  filter(Title %in% c("Green Eggs and Ham", "The Cat in the Hat", "How the Grinch Stole Christmas", "The Lorax", "One Fish Two Fish Red Fish Blue Fish"))
+            filter(Creator == "Dr. Seuss") %>%
+            filter(Title %in% c("Green Eggs and Ham", "The Cat in the Hat", "How the Grinch Stole Christmas", "The Lorax", "One Fish Two Fish Red Fish Blue Fish"))
 
 # Plot
 ggplot(dr_seuss, aes(x = Title,

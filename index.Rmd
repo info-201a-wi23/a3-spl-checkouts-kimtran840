@@ -43,6 +43,8 @@ This data may be inaccurate due to the nature of how large and widespread the da
 
 ### First Trends Over Time Chart
 
+I made a two color line graph to follow the trends of 2 books. I did this because its visually easier to see the increases and decreases of the book checkouts and see the difference of checkouts for the two books. 
+
 I included this chart to see the trends of the two books I was required in high school to read. I wanted to compare the number of checkouts the two books had each month while also analyzing if there were increases during school months and decreases during summer break months. This chart tells me that "Lord of the Flies" is more popular in 2022-2023 and that checkouts spiked in April and July. "Fahrenheit 451" is less popular and only increased a bit more in December. The checkout spikes might indicate schools requiring students to read the book, however the spike in July does not make sense so this can be concluded that there is no correlation with school required readings and the checkouts of the 2 books. People just enjoy "Lord of the Flies" more based on the chart trends. 
 
 
@@ -57,7 +59,7 @@ spl_df$date <- as.Date(spl_df$date, format = "%Y-%m-%d")
 
 # Compare books
 books_2 <- spl_df %>%
-  filter(Title %in% c("Lord of the Flies", "Fahrenheit 451")) 
+           filter(Title %in% c("Lord of the Flies", "Fahrenheit 451")) 
 
 # Plot
 ggplot(data = books_2) + geom_line(aes(x = date,
@@ -68,10 +70,12 @@ ggplot(data = books_2) + geom_line(aes(x = date,
     x = "Checkout Date",
     y = "Number of Checkouts",
     color = "Book name"
-  )
+)
 ``````
 
 ### Second Trends Over Time Chart
+
+I made this a colored scatter plot to compare the checkouts of each book throughout each month. At first, I added lines to connect the scatterplots but it was visually confusing. This is why I left it as a scatter plot with colors and no lines. 
 
 I included this chart to see the checkout trends of my favorite childhood books. The chart lacks red dots and most red dots show near the bottom, so I know "Brown Bear, Brown Bear, What Do You See?" is not that popular. At first glance, "The Cat in the Hat" has more plots but are quite sporadic, giving an illusion that there are more checkouts for the book. However, we can see a clear increase of blue dots in later months that are higher up letting us know "The Very Hungry Caterpillar" is checked out on average more meaning it's more popular. This can probably indicate and let us know that "The Very Hungry Caterpillar" may be popular in 2023-2024 too since there's a clear linear increase from the data. 
 
@@ -87,7 +91,7 @@ spl_df$date <- as.Date(spl_df$date, format = "%Y-%m-%d")
 
 # Book
 fav_child_book <- spl_df %>%
-  filter(Title %in% c("The Very Hungry Caterpillar", "The Cat in the Hat", "Charlotte's Web", "Brown Bear, Brown Bear, What Do You See?")) 
+                  filter(Title %in% c("The Very Hungry Caterpillar", "The Cat in the Hat", "Charlotte's Web", "Brown Bear, Brown Bear, What Do You See?")) 
 
 # Plot
 
@@ -99,10 +103,11 @@ ggplot(data = fav_child_book) + geom_point(aes(x = date,
     x = "Checkout Date",
     y = "Number of Checkouts",
     color = "Book Title"
-  )
+)
 ``````
 
 ### Your Choice
+I made a rainbow bar chart to see the total amount of checkouts for each of the 5 Dr. Seuss books I chose. It's easier to rank the books from least to highest amount of checkouts when we can visually see length differences therefore I chose this chart.
 
 I included this chart to view what people loved from Dr. Seuss's work based off of my top 5 favorite books from him. Lots of people loved "Green Eggs and Ham" and "The Cat in the Hat" which makes sense since those were the first 2 books I was introduced to by Dr. Seuss. The least checkouts was "The Lorax" which indicated to me that it isn't as popular now than it was when I was younger. In general, Dr. Seuss has a good amount of book checkouts for all his works, but it seems like his most well known classics continues to be relevant and trending in 2022-2023.  
 
@@ -118,8 +123,8 @@ spl_df$date <- as.Date(spl_df$date, format = "%Y-%m-%d")
 # Book
 
 dr_seuss <- spl_df %>%
-  filter(Creator == "Dr. Seuss") %>%
-  filter(Title %in% c("Green Eggs and Ham", "The Cat in the Hat", "How the Grinch Stole Christmas", "The Lorax", "One Fish Two Fish Red Fish Blue Fish"))
+            filter(Creator == "Dr. Seuss") %>%
+            filter(Title %in% c("Green Eggs and Ham", "The Cat in the Hat", "How the Grinch Stole Christmas", "The Lorax", "One Fish Two Fish Red Fish Blue Fish"))
 
 # Plot
 ggplot(dr_seuss, aes(x = Title,
